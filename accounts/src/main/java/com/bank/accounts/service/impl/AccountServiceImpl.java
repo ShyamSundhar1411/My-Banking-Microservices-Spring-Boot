@@ -97,5 +97,22 @@ public class AccountServiceImpl implements IAccountService {
         return  isUpdated;
     }
 
+    /**
+     * @param mobileNumber - Input mobile number
+     *
+     * @return boolean indicating if account deletion is successful or not
+     */
+    @Override
+    public boolean deleteAccount(String mobileNumber) {
+        CustomerEntity customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                ()-> new ResourceNotFoundException("Customer","Mobile Number",mobileNumber)
+        );
+        accountsRepository.deleteByCustomerId(customer.getCustomerId());
+        customerRepository.deleteById(customer.getCustomerId());
+        return true;
+
+
+    }
+
 
 }
