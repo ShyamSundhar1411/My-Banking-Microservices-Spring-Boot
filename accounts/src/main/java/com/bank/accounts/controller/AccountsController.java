@@ -4,6 +4,8 @@ import com.bank.accounts.constants.AccountsConstants;
 import com.bank.accounts.dto.CustomerDto;
 import com.bank.accounts.dto.ResponseDto;
 import com.bank.accounts.service.IAccountService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +16,19 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
     private IAccountService iAccountService;
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<ResponseDto> createAccount(@Valid  @RequestBody CustomerDto customerDto){
         iAccountService.createAccount(customerDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
     }
     @GetMapping("/fetch")
-    public ResponseEntity<CustomerDto> fetchAccountDetail(@RequestParam String mobileNumber){
+    public ResponseEntity<CustomerDto> fetchAccountDetail(@RequestParam @Pattern(regexp = "($[0-9]{10})",message = "Mobile Number must be 10 digit") String mobileNumber){
         CustomerDto customerDto = iAccountService.fetchAccount(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateAccount(@RequestParam CustomerDto customerData){
+    public ResponseEntity<ResponseDto> updateAccount(@Valid @RequestParam CustomerDto customerData){
         boolean isUpdated = iAccountService.updateAccount(customerData);
         if(isUpdated){
             return ResponseEntity.status(HttpStatus.OK)
