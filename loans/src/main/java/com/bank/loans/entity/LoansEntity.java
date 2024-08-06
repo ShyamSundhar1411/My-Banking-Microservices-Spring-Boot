@@ -1,11 +1,13 @@
 package com.bank.loans.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import javax.annotation.processing.Generated;
 
 @Entity
 @Table(name = "loans")
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
 public class LoansEntity extends BaseEntity {
 
     @Id
