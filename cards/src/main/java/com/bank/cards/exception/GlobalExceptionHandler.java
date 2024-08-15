@@ -1,6 +1,8 @@
-package com.bank.loans.exception;
+package com.bank.cards.exception;
 
-import com.bank.loans.dto.ErrorResponseDto;
+
+
+import com.bank.cards.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -60,8 +62,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(LoanAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> handleCardAlreadyExistsException(LoanAlreadyExistsException exception,
+    @ExceptionHandler(CardAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleCardAlreadyExistsException(CardAlreadyExistsException exception,
                                                                              WebRequest webRequest){
         ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
                 webRequest.getDescription(false),

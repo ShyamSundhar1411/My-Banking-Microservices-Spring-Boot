@@ -1,6 +1,9 @@
 package com.bank.cards.entity;
 
+import com.bank.cards.audit.AuditAwareImpl;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
+@EntityListeners(AuditAwareImpl.class)
 @Getter @Setter @ToString
 public class BaseEntity {
 
