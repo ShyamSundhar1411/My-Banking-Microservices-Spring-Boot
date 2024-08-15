@@ -1,29 +1,40 @@
 package com.bank.loans.service.impl;
 
+import com.bank.loans.constants.LoansConstants;
 import com.bank.loans.dto.LoansDto;
 import com.bank.loans.entity.LoansEntity;
+import com.bank.loans.exception.LoanAlreadyExistsException;
 import com.bank.loans.exception.ResourceNotFoundException;
 import com.bank.loans.mapper.LoanMapper;
 import com.bank.loans.repository.LoansRepository;
 import com.bank.loans.service.ILoanService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service
 @AllArgsConstructor
 public class LoanServiceImpl implements ILoanService {
+    private static final Logger log = LoggerFactory.getLogger(LoanServiceImpl.class);
     private LoansRepository loansRepository;
 
     /**
-     * @param loansDto - LoanDto Object
+     * @param mobileNumber - Mobile Number of the Customer
      */
     @Override
-    public void createLoan(LoansDto loansDto) {
-        LoansEntity loanData = LoanMapper.mapToLoansEntity(new LoansEntity(), loansDto);
-        loansRepository.save(loanData);
+    public void createLoan(String mobileNumber) {
+        Optional<LoansEntity> optionalLoans= loansRepository.findLoanByMobileNumber(mobileNumber);
+        if(optionalLoans.isPresent()){
+            throw new LoanAlreadyExistsException("Loan already registered with given mobileNumber "+mobileNumber);
+        }
+        loansRepository.save(createNewLoan(mobileNumber));
     }
+
+
     /**
      * @param mobileNumber - Mobile Number of the Customer
      * @return the new loan details
@@ -33,10 +44,10 @@ public class LoanServiceImpl implements ILoanService {
         long randomLoanNumber = 100000000000L + new Random().nextInt(900000000);
         newLoan.setLoanNumber(Long.toString(randomLoanNumber));
         newLoan.setMobileNumber(mobileNumber);
-        newLoan.setLoanType(com.eazybytes.loans.constants.LoansConstants.HOME_LOAN);
-        newLoan.setTotalLoan(com.eazybytes.loans.constants.LoansConstants.NEW_LOAN_LIMIT);
+        newLoan.setLoanType(LoansConstants.HOME_LOAN);
+        newLoan.setTotalLoan(LoansConstants.NEW_LOAN_LIMIT);
         newLoan.setAmountPaid(0);
-        newLoan.setOutstandingAmount(com.eazybytes.loans.constants.LoansConstants.NEW_LOAN_LIMIT);
+        newLoan.setOutstandingAmount(LoansConstants.NEW_LOAN_LIMIT);
         return newLoan;
     }
     /**
@@ -48,8 +59,7 @@ public class LoanServiceImpl implements ILoanService {
         LoansEntity loan = loansRepository.findLoanByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException("Loans","mobile number",mobileNumber)
         );
-        LoansDto loanDto = LoanMapper.mapToLoansDto(loan, new LoansDto());
-        return null;
+        return LoanMapper.mapToLoansDto(loan, new LoansDto());
     }
 
     /**

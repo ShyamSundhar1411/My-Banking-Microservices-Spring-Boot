@@ -6,9 +6,9 @@ public interface ILoanService {
 
     /**
      *
-     * @param loansDto - LoanDto Object
+     * @param mobileNumber - mobileNumber
      */
-    void createLoan(LoansDto loansDto);
+    void createLoan(String mobileNumber);
 
     LoansDto fetchLoan(String mobileNumber);
 
