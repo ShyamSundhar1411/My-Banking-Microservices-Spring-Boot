@@ -1,12 +1,17 @@
 package com.bank.cards.service.impl;
 
+import com.bank.cards.constants.CardsConstants;
 import com.bank.cards.dto.CardsDto;
 import com.bank.cards.entity.CardsEntity;
+import com.bank.cards.exception.CardAlreadyExistsException;
 import com.bank.cards.exception.ResourceNotFoundException;
 import com.bank.cards.mapper.CardMapper;
 import com.bank.cards.repository.CardsRepository;
 import com.bank.cards.service.ICardsService;
 import lombok.AllArgsConstructor;
+
+import java.util.Optional;
+import java.util.Random;
 
 @AllArgsConstructor
 public class ICardsServiceImpl implements ICardsService {
@@ -17,9 +22,23 @@ public class ICardsServiceImpl implements ICardsService {
      */
     @Override
     public void createCard(String mobileNumber) {
-
+        Optional<CardsEntity> optionalCards= cardsRepository.findCardDetailsByCardNumber(mobileNumber);
+        if(optionalCards.isPresent()){
+            throw new CardAlreadyExistsException("Card already registered with given mobileNumber "+mobileNumber);
+        }
+        cardsRepository.save(createNewCard(mobileNumber));
     }
-
+    private CardsEntity createNewCard(String mobileNumber) {
+        CardsEntity newCard = new CardsEntity();
+        long randomCardNumber = 100000000000L + new Random().nextInt(900000000);
+        newCard.setCardNumber(Long.toString(randomCardNumber));
+        newCard.setMobileNumber(mobileNumber);
+        newCard.setCardType(CardsConstants.CREDIT_CARD);
+        newCard.setTotalLimit(CardsConstants.NEW_CARD_LIMIT);
+        newCard.setAmountUsed(0);
+        newCard.setAvailableAmount(CardsConstants.NEW_CARD_LIMIT);
+        return newCard;
+    }
     /**
      * @param mobileNumber - mobileNumber
      * @return card Details
@@ -37,7 +56,7 @@ public class ICardsServiceImpl implements ICardsService {
      * @return boolean indicating update Status
      */
     @Override
-    public boolean updateCard(CardsDto cardsDto) {]
+    public boolean updateCard(CardsDto cardsDto) {
         boolean isUpdated = false;
         String cardNumber = cardsDto.getCardNumber();
         if(cardNumber != null){
