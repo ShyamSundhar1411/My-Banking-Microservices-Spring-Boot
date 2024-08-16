@@ -143,7 +143,7 @@ public class CardsController  {
         boolean isDeleted = iCardsService.deleteCard(mobileNumber);
         if(isDeleted){
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseDto(CardsConstants.STATUS_200,CardsConstants.STATUS_200)
+                    new ResponseDto(CardsConstants.STATUS_200,CardsConstants.MESSAGE_200)
             );
         }
         else{

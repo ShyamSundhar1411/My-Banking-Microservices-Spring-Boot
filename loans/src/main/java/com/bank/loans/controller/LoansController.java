@@ -106,7 +106,7 @@ public class LoansController {
         boolean isUpdated = iLoanService.updateLoan(loansDto);
         if(isUpdated){
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseDto(LoansConstants.STATUS_200,LoansConstants.STATUS_200)
+                    new ResponseDto(LoansConstants.STATUS_200,LoansConstants.MESSAGE_200)
             );
         }
         else{

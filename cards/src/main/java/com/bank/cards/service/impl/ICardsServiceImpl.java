@@ -9,10 +9,12 @@ import com.bank.cards.mapper.CardMapper;
 import com.bank.cards.repository.CardsRepository;
 import com.bank.cards.service.ICardsService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Random;
 
+@Service
 @AllArgsConstructor
 public class ICardsServiceImpl implements ICardsService {
     private CardsRepository cardsRepository;
