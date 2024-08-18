@@ -12,6 +12,7 @@
 	<artifactId>loans</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>loans</name>
+	<packaging>jar</packaging>
 	<description>Loans Microservice</description>
 	<url/>
 	<licenses>
@@ -87,6 +88,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<image>
+						<name>shyamsundhar2435/${project.artifactId}}:s4</name>
+					</image>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
