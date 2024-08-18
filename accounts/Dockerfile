@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-slim
 
-MAINTAINER shyamsundhar
+MAINTAINER shyamsundhar2435
 
 COPY target/accounts-0.0.1-SNAPSHOT.jar accounts-0.0.1-SNAPSHOT.jar
 
