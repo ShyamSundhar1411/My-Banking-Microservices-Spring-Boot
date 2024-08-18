@@ -89,7 +89,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>shyamsundhar2435/${project.artifactId}}:s4</name>
+						<name>shyamsundhar2435/${project.artifactId}:s4</name>
 					</image>
 					<excludes>
 						<exclude>
