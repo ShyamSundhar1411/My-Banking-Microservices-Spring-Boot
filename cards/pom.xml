@@ -12,6 +12,7 @@
 	<artifactId>cards</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cards</name>
+	<packaging>jar</packaging>
 	<description>Microservice for Cards</description>
 	<url/>
 	<licenses>
@@ -87,6 +88,16 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.3</version>
+				<configuration>
+					<to>
+						<image>shyamsundhar2435/cards:s4</image>
+					</to>
 				</configuration>
 			</plugin>
 		</plugins>
