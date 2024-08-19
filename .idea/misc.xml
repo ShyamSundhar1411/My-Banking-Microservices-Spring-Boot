@@ -7,6 +7,9 @@
         <option value="$PROJECT_DIR$/accounts/pom.xml" />
         <option value="$PROJECT_DIR$/loans/pom.xml" />
         <option value="$PROJECT_DIR$/cards/pom.xml" />
+        <option value="$PROJECT_DIR$/v1-springboot/accounts/pom.xml" />
+        <option value="$PROJECT_DIR$/v1-springboot/cards/pom.xml" />
+        <option value="$PROJECT_DIR$/v1-springboot/loans/pom.xml" />
       </list>
     </option>
   </component>
