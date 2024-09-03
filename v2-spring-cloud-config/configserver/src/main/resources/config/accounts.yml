@@ -1,2 +1,22 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: "accounts"
+    profiles:
+      active: "prod"
+  datasource:
+    url: jdbc:h2:mem:test_db
+    driverClassName: org.h2.Driver
+    username: test
+    password: "test123"
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 build:
   version: "1.0"
