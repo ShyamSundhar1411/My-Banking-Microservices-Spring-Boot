@@ -117,7 +117,7 @@
                 <version>3.4.3</version>
                 <configuration>
                     <to>
-                        <image>shyamsundhar2435/${project.artifactId}}:s6</image>
+                        <image>shyamsundhar2435/${project.artifactId}:s6</image>
                     </to>
                 </configuration>
             </plugin>
