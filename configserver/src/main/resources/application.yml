@@ -7,7 +7,7 @@ spring:
       config:
         server:
           git:
-            url: 'https://github.com/easybytes/easybytes-config.git'
+            url: 'https://github.com/eazybytes/eazybytes-config.git'
             default-label: main
             timeout: 5
             clone-on-start: yes
