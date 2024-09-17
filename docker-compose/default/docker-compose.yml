@@ -26,6 +26,25 @@ services:
     extends:
       file: common-config.yml
       service: microservice-db-config
+  eurekaserver:
+    image: "shyamsundhar2435/eurekaserver:s6"
+    container_name: eurekaserver-microservice
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl -f -s localhost:8070/actuator/health/readiness| grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
+    depends_on:
+      configserver:
+        condition: service_healthy
 
   configserver:
     image: "shyamsundhar2435/configserver:s6"
@@ -48,8 +67,6 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      configserver:
-        condition: service_healthy
       accountsdb:
         condition: service_healthy
     environment:
@@ -66,8 +83,6 @@ services:
     ports:
       - "8090:8090"
     depends_on:
-      configserver:
-        condition: service_healthy
       loansdb:
         condition: service_healthy
 
@@ -85,8 +100,6 @@ services:
     ports:
       - "9000:9000"
     depends_on:
-      configserver:
-        condition: service_healthy
       cardsdb:
         condition: service_healthy
 
