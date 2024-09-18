@@ -36,7 +36,7 @@ public class CustomerController {
     public CustomerController(ICustomerService iCustomerService){
         this.iCustomerService = iCustomerService;
     }
-    @GetMapping("/fetch")
+    @GetMapping("customer/fetch")
     @Operation(
             summary = "Fetch Customer Details REST API",
             description = "REST API to fetch Customer &  Customer details based on a mobile number"
